@@ -1,2 +1,2 @@
 # webpr
-Courseware webpr @webpr
+Courseware webpr @fhnw
