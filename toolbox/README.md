@@ -43,3 +43,38 @@ const plus = x => y => x+y
 plus(10)(20) === 30 // true
 ```
 
+### Wiederkehrende Aktion setInterval()
+
+```javascript
+// Führt Funktion alle 3 Sekunden aus
+setInterval( () => alert("Hello"), 3000); 
+
+// Ladet neues Game jede 1000/10ms
+setInterval(() => {
+        console.log(`Snake length : ${snake.length}`)
+        nextBoard();
+        display(context);
+    }, 1000 / 10);
+}
+```
+
+### Arrays in JavaScript
+
+```javascript
+// Neues Array erzeugen
+let arr1 = [1,2,3];
+
+//Snake Variante
+let arr2 = [
+    {x: 10, y: 5},
+    {x: 10, y: 6},
+    {x: 10, y: 7}
+];
+
+arr1.pop(); //returns and remove the last Element of the Array [1,2]
+arr1.push(3);// adds a new Element at the End of the Array [1,2,3]
+arr1.unshift(0); //put Element at the beginning of the array [0,1,2,3]
+arr1.shift(); //returns and removes first elemnt of Array
+
+```
+
