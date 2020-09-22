@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scope Tests</title>
+</head>
+<body>
+    <script>
+
+    const id = y => y
+    const fst = x => y => x
+
+    const snd = fst(id)
+    document.writeln(snd(undefined)(id) === id);
+
+
+    </script>
+</body>
+</html>
+

@@ -78,3 +78,51 @@ arr1.shift(); //returns and removes first elemnt of Array
 
 ```
 
+### Scopes
+
+Every Variable has his own scope
+
+`global` Window ( in Browser)
+
+`function` No matter where defined, variables are local to the enclosing function ( lambda)
+
+#### JavaScript Variables
+
+```javascript
+x = ... 		//mutable, global scope --> Don't use
+var x = ...		//mutable, "hoisted" scope --> Don't use
+let x = ...		//mutable, local scope
+const x = ...	//immutable, local scope
+```
+
+### IIFE
+
+Immediately Invoked Function Expression
+
+```javascript
+( () => {let x = 2; document.writeln(x ===2)}) ()
+```
+
+### Lambda Kalkül
+
+Kalkül = Eine Art, wie man Schlussfolgerungen zieht. --> Logik
+
+```javascript
+//Alpha Translation --> Umbenennen
+const id = x => x
+
+// Beta Reduktion --> Anwenden
+( f => x => f (x))(id)(1)
+(      x =>id(x))	  (1)
+(			id(1))
+(x=>x)(1)
+1
+
+//Eta Reduktion
+x => y =>plus(x)(y)	//Wenn y so da steht
+x =>	 plus(x)
+		 plus
+```
+
+
+

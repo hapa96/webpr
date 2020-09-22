@@ -6,7 +6,32 @@
 </head>
 <body>
     <script>
+        let x = 1;
+        document.writeln(x ===1);
 
+        function foo(){
+            const x = 2;
+            document.writeln(x === 2);   
+        }
+
+
+        { let x = 3; document.writeln(x ===3); }   //make a local scope
+        
+        foo(); 
+        document.writeln(x === 1); 
+        
+        //IIFE
+        ( () => {let x = 2; document.writeln(x ===2)}) ()   
+
+        //Lambda Kalkül
+        const id = x => x;
+        const konst = x => y => x;
+
+        document.writeln(id(id) === id);
+        document.writeln(konst(id)(undefined) === id);
+
+        const snd = konst(id); // --> snd = x => y => y
+        document.writeln(snd(undefined)(id) === id);
 
 
 

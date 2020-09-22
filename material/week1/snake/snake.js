@@ -3,7 +3,6 @@ const north = {dx:  0, dy: -1};
 const east  = {dx:  1, dy:  0};
 const south = {dx:  0, dy:  1};
 const west  = {dx: -1, dy:  0};
-
 let direction = north;
 
 const clockwise = [north, east, south, west, north];
@@ -17,7 +16,7 @@ let snake = [
 ];
 let food = {x: 15, y: 15};
 
-function snakeEquals(a, b) {return a.x === b.x && a.y === b.y }
+function snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
 
 function changeDirection(orientation) {
     const idx = orientation.indexOf(direction);
@@ -36,10 +35,9 @@ function start() {
     };
 
     setInterval(() => {
-        console.log(`Snake length : ${snake.length}`)
         nextBoard();
         display(context);
-    }, 1000 / 10);
+    }, 1000 / speed);
 }
 
 function nextBoard() {
@@ -64,7 +62,7 @@ function nextBoard() {
     } else {
         snake.pop(); // no food found => no growth despite new head => remove last element
     }
-    
+
     snake.unshift(head); // put head at front of the list
 }
 
@@ -77,7 +75,7 @@ function display(context) {
     snake.forEach(element =>
         fillBox(context, element)
     );
-    context.fillStyle = "white";
+    context.fillStyle = "green";
     fillBox(context, snake[0]);
     // draw food
     context.fillStyle = "red";

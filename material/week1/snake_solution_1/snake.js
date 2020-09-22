@@ -3,7 +3,6 @@ const north = {dx:  0, dy: -1};
 const east  = {dx:  1, dy:  0};
 const south = {dx:  0, dy:  1};
 const west  = {dx: -1, dy:  0};
-
 let direction = north;
 
 const clockwise = [north, east, south, west, north];
@@ -38,7 +37,7 @@ function start() {
     setInterval(() => {
         nextBoard();
         display(context);
-    }, 1000 / 10);
+    }, 1000 / speed);
 }
 
 function nextBoard() {
