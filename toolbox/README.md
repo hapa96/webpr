@@ -2,7 +2,6 @@
 
 [toc]
 
-## JavaScript Basics
 
 ### Keywords
 
@@ -123,6 +122,14 @@ x => y =>plus(x)(y)	//Wenn y so da steht
 x =>	 plus(x)
 		 plus
 ```
+### regEx
+Use Regual Expressions to find or edit patterns in a string.
+The literal notation's parameters are enclosed between slashes and do not use quotation marks.
+```javascript
+let string = "I like Javascript"
+// literal notation --> search for the term like and replace it by the word love
+string = string.replace(/like/g,'love'); //"I love Javascript"
+
 
 
 
