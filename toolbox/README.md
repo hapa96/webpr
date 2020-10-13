@@ -252,7 +252,7 @@ const f2 = (x, ...y) => console.log(x, ...y);
 f2(1,2,3,4,5,6) //1-2-3-4-5-6
 ```
 
-## High Order Function
+### High Order Function
 
 Können auf Datenstrukturen angewendet werden
 
@@ -298,5 +298,51 @@ console.log(array1.reduce(reducer, 5));
 //join an Array with special delimeter
 const join = delimeter => (accu, cur) => (accu + delimeter + cur);
 [1,2,3].reduce(join('-')); // Output: '1-2-3'
+```
+
+### Scripting
+
+#### Progressive Web App
+
+```javascript
+document.write('<script src=...');
+```
+
+#### Change Content of Page
+
+```javascript
+//change title of Page
+document.getElementsByTagName("title")[0].textContent = "New Title"
+//STring ausführen mit eval
+const i = "alert('hi!');" //save string as Variable
+eval(i); 	//execute String with eval
+```
+
+#### Function
+
+`Function()` is like `eval()` but declares parameters and executes in the global scope. It creates a reference.
+
+```javascript
+const add = Function('x', 'y', 'return x+y');
+add(1, 2);
+add(2, 3); // no need to re-parse
+```
+
+
+
+#### Plotter
+
+Show Plot
+
+```javascript
+const userFunction = document.getElementById('user_function');
+//with eval
+display(context, x => eval(userFunction.value));
+userFunction.onchange = evt => display(context, x => eval(userFunction.value));
+
+//with Function
+const f = Function('x', `return ${userFunction.value}`);
+display(context, f);
+userFunction.onchange = evt => display(context, Function('x', `return ${userFunction.value}`));
 ```
 

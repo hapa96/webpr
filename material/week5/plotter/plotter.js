@@ -10,6 +10,9 @@ function start() {
     const context      = canvas.getContext("2d");
 
     // todo: how to display?
+    const f = Function('x', `return ${userFunction.value}`);
+    display(context, f);
+    userFunction.onchange = evt => display(context, Function('x', `return ${userFunction.value}`));
 
 }
 
