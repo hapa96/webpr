@@ -115,6 +115,20 @@ arr1.shift(); //returns and removes first elemnt of Array
 
 ```
 
+#### Array deconstructor
+
+```javascript
+const foo = () => [1,2];
+foo() //[1,2]
+// Elemente aus einem Array "holen"
+let [x,y] = foo()  // x = 1 | y = 2
+
+// swap Element in Array
+[y, x] = [x, y] // x = 2 | y =1
+// Swap als Funktion
+const swap ([x, y]) => [y, x]
+```
+
 ### Scopes
 
 Every Variable has his own scope
@@ -236,5 +250,53 @@ f1(1,2,3,4,5,6) //1-[2,3,4,5,6]
 //Kapselt Argumente in Y und "entkapselt" sie wieder
 const f2 = (x, ...y) => console.log(x, ...y); 
 f2(1,2,3,4,5,6) //1-2-3-4-5-6
+```
+
+## High Order Function
+
+Können auf Datenstrukturen angewendet werden
+
+#### Map
+
+```java
+const times = a => b => a * b;
+const twoTimes = times(2); //partial application --> wartet noch auf "b"
+
+[1, 2, 3].map(x => times(2)(x));
+[1, 2, 3].map(times(2));
+[1, 2, 3].map(twoTimes);
+```
+
+#### filter
+
+*Gibt an, welche Werte behalten werden. Alle Conditions, welche zu **true** evaluieren, werden behalten*
+
+```javascript
+const odd = x => x % 2 === 1;
+
+[1, 2, 3].filter(x => x % 2 === 1);
+[1, 2, 3].filter(x => odd(x));
+[1, 2, 3].filter(odd);
+```
+
+#### reduce
+
+Die `reduce()`-Methode reduziert ein Array auf einen einzigen Wert, indem es jeweils zwei Elemente (von links nach rechts) durch eine gegebene Funktion reduziert.
+
+```javascript
+const array1 = [1, 2, 3, 4];
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+// 1 + 2 + 3 + 4
+console.log(array1.reduce(reducer));
+// expected output: 10
+
+// 5 + 1 + 2 + 3 + 4
+console.log(array1.reduce(reducer, 5));
+// expected output: 15
+
+//join an Array with special delimeter
+const join = delimeter => (accu, cur) => (accu + delimeter + cur);
+[1,2,3].reduce(join('-')); // Output: '1-2-3'
 ```
 
