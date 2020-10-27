@@ -1,4 +1,27 @@
 // Todo:
+function Player(Playername) {
+    let name = Playername
+    let fallbackIndex = 0;
+    let progressIndex = 0;
+    return{
+        proceed: function(stride){
+            progressIndex +=stride;
+        },
+        fallback: function(){
+            progressIndex = fallbackIndex;
+        },
+        turn: function(){
+            fallbackIndex = progressIndex;
+        },
+        getFallbackIndex: function(){
+            return fallbackIndex;
+        },
+        getProgressIndex: function(){
+            return progressIndex;
+        }
+    }
+
+}
 
 // create a proper Player construction with
 // state:
@@ -50,3 +73,4 @@ function display() {
 }
 
 player = Player("One");
+player = Player("Two");

@@ -346,3 +346,92 @@ display(context, f);
 userFunction.onchange = evt => display(context, Function('x', `return ${userFunction.value}`));
 ```
 
+### Object Oriented Programming in JS
+
+#### Objects
+
+ :question: ***What are Objects in JS***
+
+* Data Structures
+* Method for access and management
+* A location for mutual state
+* abstraction and polymorphism
+
+##### Open & dynamic
+
+Standard JS Object
+
+```javascript
+const good ={
+    firstname : "Good",
+    lastname : "Boy",
+    getName: function(){
+        return this.firstname + " " + this.lastname
+    }
+};
+// no safety but super dynamic
+// unobvious how to share structure
+// beware of "this"! See Adam Breindl last week.
+```
+
+##### Closed& explicit
+
+Closure scope, no "this" 
+
+```javascript
+function Person(first, last) {
+	let firstname = first; // optional
+	let lastname = last;
+	return {
+		getName: function() {
+			return firstname + " " + lastname }
+		}
+	}
+}
+// best safety, easy to share structure, but no class
+```
+
+##### Mixed & classified
+
+Depends on "new". Is the "default" construction.
+
+```javascript
+const Person = ( () => { // lexical scope
+	function Person(first, last) { // ctor, binding
+		this.firstname = first;
+		this.lastname = last;
+	}
+	Person.prototype.getName = function() {
+		return this.firstname + " " + this.lastname;
+	};
+	return Person;
+}) (); // IIFE
+// new Person("Good", "Boy") instanceof Person
+```
+
+##### Example for Player Object
+
+```javascript
+function Player() {
+    let fallbackIndex = 0;
+    let progressIndex = 0;
+    return{
+        proceed: function(stride){
+            progressIndex +=stride;
+        },
+        fallback: function(){
+            progressIndex = fallbackIndex;
+        },
+        turn: function(){
+            fallbackIndex = progressIndex;
+        },
+        getFallbackIndex: function(){
+            return fallbackIndex;
+        },
+        getProgressIndex: function(){
+            return progressIndex;
+        }
+    }
+}
+```
+
