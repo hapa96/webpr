@@ -36,7 +36,7 @@
 
     ok.push(s instanceof Student);
     ok.push(s.__proto__ === Student.prototype);
-    ok.push(Object.getPrototypeOf(s) === Student.prototype);
+    ok.push(Object.getPrototypeOf(s) === Student.prototype); //Important fo Quiz
     ok.push(s instanceof Person);
     ok.push(s instanceof Object);
     ok.push(Student instanceof Function);
@@ -86,16 +86,13 @@
             worklog: worklog,
             work:    () => worklog.push(worker.work())
         };
-
-        //...
-
+        result.__proto__ = Person.prototype; //make the dk Object an Instance of Person
         return result
     }
 
     const dk = Person( {work: () => ""} );
-
+    //dk.__proto__ = Person.prototype // alternative Variante to make the dk Object instance of Person
     ok.push(dk instanceof Person);
-
     report("inheritance-setProto", ok);
 })();
 

@@ -374,7 +374,7 @@ const good ={
 // beware of "this"! See Adam Breindl last week.
 ```
 
-##### Closed& explicit
+##### Closed & explicit
 
 Closure scope, no "this" 
 
@@ -433,5 +433,49 @@ function Player() {
         }
     }
 }
+```
+
+#### Classes
+
+`Class`Keyword: Syntactic sugar for Mixed - classified 		(ES6)
+
+```javascript
+class Person {
+	constructor(first, last) {
+		this.firstname = first;
+		this.lastname = last
+	}
+	getName() {
+	return this.firstname + " " + this.lastname
+	}
+}
+// new Person("Good", "Boy") instanceof Person
+```
+
+`extends`Keyword Syntactic sugar for creating a prototype chain 		(ES6)
+
+```javascript
+class Student extends Person {
+	constructor (first, last, grade) {
+		super(first, last);	//Do not forget !! Superconstructor
+		this.grade = grade;
+	}
+}
+const s = new Student("Top","Student", 5.5);
+```
+
+##### Prototype Chain
+
+```javascript
+const s = new Student()
+// s.__proto__ === Student.prototype;
+// Object.getPrototypeOf(s) === Student.prototype;
+// => s instanceof Student
+```
+
+##### Function Composition
+
+```javascript
+
 ```
 
