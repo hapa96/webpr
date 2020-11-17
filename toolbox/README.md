@@ -473,9 +473,36 @@ const s = new Student()
 // => s instanceof Student
 ```
 
-##### Function Composition
+#### MVC
+
+![image-20201110171950566](C:\Users\pascal.hauser1\Documents\repos\webpr\toolbox\README.assets\image-20201110171950566.png)
+
+
+
+##### Higher-Order-Function
 
 ```javascript
-
+function test(name, callback) {
+	const assert = Assert();		// prework
+	callback(assert);				// callback
+	report(name, assert.getOk());	// postwork
+}
 ```
 
+#### Observable
+
+```javascript
+const Observable = value => {
+	const listeners = []; // many
+	return {
+		onChange: callback => listeners.push(callback),
+		getValue: () => value,
+		setValue: val => {
+			if (value === val) return; // protection
+			// ordering
+            value = val;
+			listeners.forEach(notify => notify(val));
+		}
+	}
+};
+```
