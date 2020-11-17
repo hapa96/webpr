@@ -1,35 +1,32 @@
-const z_ = 1;
-const x_= 2;
-const y_ = 10;
-const Observable = value => {
-    const listeners = [];
-    return {
-        onChange: callback => {
-            listeners.push(callback);
-            callback(value, value);
-        },
-        getValue: ()       => value,
-        setValue: newValue => {
-            if (value === newValue) return;
-            const oldValue = value;
-            value = newValue;
-            listeners.forEach(callback => callback(value));
-        }
-    }
+/* *Copy* the following code into the edit area and fill the ___ gaps. */
+
+const NullSafe = (x) => {
+  const isNullSafe = (y) => y && y.then;
+  const maywrap = (y) => (isNullSafe(y) ? y : NullSafe(y));
+  return {
+    then: (fn) => (x !== null && x != undefined ? maywrap(fn(x)) : NullSafe(x)),
+  };
 };
 
-let sum = 0;
-let product = 1                                 
-const trackable = Observable(1);
+/* 
+(1) if x is not null or undefined, call fn(x); either way, make sure the result is a NullSafe 
 
-trackable.onChange(n => sum += n);
-trackable.onChange(n => product *= n);
+Fill the gaps such that NullSafe objects can be chained with their "then" function
+just like Promises do, incl. auto-promotion of result values to NullSafe objects.
 
+NullSafe(1).then(console.log);                   // will call the log
+NullSafe(null).then(console.log);                // will not call the log
+NullSafe(2).then( x => null).then(console.log);  // will not call the log 
+*/
 
-//Test
-trackable.setValue(x_); // values x_, y_, z_ are given. Do not override.
-trackable.setValue(y_);
-trackable.setValue(z_);
+let x_ = 1;
+let y_ = 2;
 
-document.writeln(sum);
-document.writeln(product);
+document.writeln(
+  NullSafe(x_)
+    .then((x) => x * 2) // must auto-promote
+    .then((x) => NullSafe(x)) // must not auto-promote
+    .then((x) => (y_ = x + 1)) // store value, check no double promotion
+    .then((x) => null) // jump over rest
+    .then((x) => x.mustNotBeCalled) !== null && y_ === x_ * 2 + 1
+);
