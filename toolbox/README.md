@@ -506,3 +506,118 @@ const Observable = value => {
 	}
 };
 ```
+
+#### Async Programming
+
+##### Callback, Events
+
+```javascript
+function start() {
+	//...
+	window.onkeydown = evt => {
+		// doSomething();
+	};
+	setInterval(() => {
+		// doSomething();
+	}, 1000 / 5);
+}
+```
+
+##### Promise
+
+[Promise](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) 
+
+Das `Promise`-Interface repräsentiert einen Proxy für einen Wert, der nicht zwingend bekannt ist, wenn der Promise erstellt wird. Das erlaubt die Assoziation zwischen *Handler* und dem Gelingen oder Fehlschlagen einer asynchronen Aktion. Mit diesem Mechanismus können asynchrone Methoden in gleicher Weise Werte zurück geben wie synchrone Methoden: Anstelle des endgültigen Wertes wird ein *Promise* zurückgegeben, dass es zu einem Zeitpunkt in der Zukunft einen Wert geben wird.
+
+**Most prominent use:**
+
+```javascript
+fetch ('http://fhnw.ch/json/students/list')
+.then(response => response.json())
+.then(students => console.log(students.length))
+.catch (err => console.log(err)
+```
+
+**Success / Failure callbacks:**
+
+```javascript
+// definition
+const processEven = i => new Promise( (resolve, reject) => {
+	if (i % 2 === 0) {
+		resolve(i);
+	} else {
+		reject(i);
+	}
+});
+
+// use
+
+processEven(4)
+.then ( it => {console.log(it); return it} ) // auto promotion
+.then ( it => processEven(it+1))
+.catch( err => console.log( "Error: " + err))
+```
+
+##### Async/ Await
+
+```javascript
+const foo = async i => {
+	const x = await processEven(i).catch( err => err);
+	console.log("foo: " + x);
+};
+foo(4);
+```
+
+Other variant:
+
+```javascript
+async function foo(i) {
+	try {
+		const x = await processEven(i);
+		console.log("foo: " + x);
+	}
+	catch(err) { console.log(err); }
+};
+foo(4);
+```
+
+#### DataFlow
+
+##### Coordination schemata
+
+> Similar to concurrency
+
+1. No coordination needed
+2. Sequence (of side effects)
+3. Dependency on former results
+
+##### No Coordination
+
+> Nothing to do !
+
+- Execution model: confident
+- All actions run independently
+
+##### Sequence
+
+> Actor
+
+- In a sequence of actions, each action can only start if the preceding one has finished
+- How to achieve this => Delegated Coordination => Scheduler
+
+##### Result Dependency
+
+- Action B and C need the result of action A
+- A must be executed **exactly once** before B and C
+- How to do this => Implicit Coordination => DataFlowVariable
+
+##### Scheduler Idea
+
+- Queue (FIFO) of functions that are started with a lock
+- Callback unlocks
+
+##### DataFlowVariable
+
+- Function, that sets a value if it is not already set. Returns the value.
+- Lazy: Access to variables that will become available later
+- Trick: Do not set the value, but a function that returns the value
