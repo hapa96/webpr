@@ -1,32 +1,38 @@
-/* *Copy* the following code into the edit area and fill the ___ gaps. */
+/* Implement a function named 'palindrome' that tells whether a given string
+is the same when read left-to-right and right-to-left, ignoring upper/lowercase differences
+and any characters outside 'a' to 'z'. For example
+palindrome('ABBA')  // true
+palindrome('Abba')  // true
+palindrome('A man, a plan, a canal: Panama!') // true
 
-const NullSafe = (x) => {
-  const isNullSafe = (y) => y && y.then;
-  const maywrap = (y) => (isNullSafe(y) ? y : NullSafe(y));
-  return {
-    then: (fn) => (x !== null && x != undefined ? maywrap(fn(x)) : NullSafe(x)),
-  };
+You must use the following helper functions (they are provided):
+const str2chars = str  => [...str];            // convert a string to an array of chars
+const isAlpha   = char => char.match(/[a-z]/); // char is in the alphabet */
+
+
+// Lösung
+const palindrome = (str) => {
+  let input = str2chars(str.toLowerCase());
+  arr = input.filter(isAlpha);
+  for(let i = 0; i< arr.length;i++){
+      if (arr[i] != arr.pop()){
+          return false;
+      }
+  }
+  return true;
 };
 
-/* 
-(1) if x is not null or undefined, call fn(x); either way, make sure the result is a NullSafe 
 
-Fill the gaps such that NullSafe objects can be chained with their "then" function
-just like Promises do, incl. auto-promotion of result values to NullSafe objects.
 
-NullSafe(1).then(console.log);                   // will call the log
-NullSafe(null).then(console.log);                // will not call the log
-NullSafe(2).then( x => null).then(console.log);  // will not call the log 
-*/
 
-let x_ = 1;
-let y_ = 2;
+
+
+const str2chars = (str) => [...str];
+const isAlpha = (char) => char.match(/[a-z]/);
 
 document.writeln(
-  NullSafe(x_)
-    .then((x) => x * 2) // must auto-promote
-    .then((x) => NullSafe(x)) // must not auto-promote
-    .then((x) => (y_ = x + 1)) // store value, check no double promotion
-    .then((x) => null) // jump over rest
-    .then((x) => x.mustNotBeCalled) !== null && y_ === x_ * 2 + 1
+  palindrome("Amore, Roma!")  &&
+    palindrome("Madam, I'm Adam!") &&
+    palindrome("Never odd or even.") &&
+    ! palindrome("Amore") 
 );
