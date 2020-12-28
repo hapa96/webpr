@@ -238,6 +238,20 @@ let string = "I like Javascript"
 string = string.replace(/like/g,'love'); //"I love Javascript"
 ```
 
+Man kann regex als String angeben oder als regex Object
+
+```javascript
+
+const s = "The rain in Spain stays mainly in the plains";
+r1 = s.replace(/ain/g,  "___") ;//replace all the occurrences of "ain"
+//The r___ in Sp___ stays m___ly in the pl___s
+r2 = s.replace(/\w+/g, "*") // Alle Worte durch Sterne ersetzen
+//* * * * * * * * *
+document.writeln(r)
+```
+
+
+
 ### ... Spread Operator
 
 [Spread Operator MDN](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Operators/Spread_operator) 
@@ -621,3 +635,97 @@ foo(4);
 - Function, that sets a value if it is not already set. Returns the value.
 - Lazy: Access to variables that will become available later
 - Trick: Do not set the value, but a function that returns the value
+
+#### Modules
+
+##### Why Modules?
+
+* Organize Code
+* Clear Dependencies
+* Avoid Errors: Globals, Scoping, Namespaces
+
+```javascript
+// avoid something like this in your html document
+<script src="fileA.js">
+<script src="fileB.js">
+<script src="fileC.js">
+// if fileA.js has a reference on fileC.js it won't work !!!
+```
+
+##### Distinguish
+
+- How I want to edit the code
+- How I want to deliver the code
+
+##### ES6 Modules are not
+
+:x:  Packages (those have versions)
+
+:x:  Dependencies, Libraries, Releases
+
+:x: Units of publication
+
+:x: Objects
+
+##### Package Manager
+
+> Installier mir mal das Packet mit Version xy
+
+`webpack`, `npm`,  `yarn`, ...
+
+##### Build Tools
+
+> Build automatisierung
+
+`webpack`, `npm`, `grunt`, `gulp`, ...
+
+##### Legacy module systems
+
+> Bevor ES6 Module System angeboten hat
+
+`CommonJS`, `AMD`, `UMD`, ...
+
+##### Legacy Module Loader / Bundler
+
+`RequireJS`, `SystemJS`, `browserify`, ...
+
+##### Modules are async
+
+```JavaScript
+// Use URI format as follows: "./myFile.js"
+<script src="./myFile.js" type="module"> // type implies "defer"
+import ("./myFile.js").then( modules => ... )
+// invasive, transitive impact
+```
+
+##### Import Variants
+
+```javascript
+// most used
+import "module-name";
+import { export1, export2 } from "module-name";
+
+// other variants
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export } from "module-name";
+import { export as alias } from "module-name";
+var promise = import("module-name");
+```
+
+##### Export Variants
+
+```javascript
+// most used
+export { name1, name2, ... , nameN };
+
+// other variants
+export function FunctionName() { .. }
+export const name1, name2, ... , nameN; // or let
+export class ClassName { .. }
+export default expression;
+export { name1 as default, .. };
+export * from .. ;
+export { name1, name2, ... , nameN } from .. ;
+```
+
